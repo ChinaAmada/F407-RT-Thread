@@ -1,7 +1,7 @@
 .\objects\object.o: C:\Keil_v5\ARM\PACK\RealThread\RT-Thread\3.1.3\src\object.c
 .\objects\object.o: C:\Keil_v5\ARM\PACK\RealThread\RT-Thread\3.1.3\include\rtthread.h
-.\objects\object.o: E:\Project\RT\CanIAP_APP\RTE\RTOS\rtconfig.h
-.\objects\object.o: E:\Project\RT\CanIAP_APP\RTE\_CanIAP\RTE_Components.h
+.\objects\object.o: E:\Project\TempCtrl\TempCtrl_RT_Thread\RTE\RTOS\rtconfig.h
+.\objects\object.o: E:\Project\TempCtrl\TempCtrl_RT_Thread\RTE\_CanIAP\RTE_Components.h
 .\objects\object.o: C:\Keil_v5\ARM\PACK\RealThread\RT-Thread\3.1.3\include\rtdebug.h
 .\objects\object.o: C:\Keil_v5\ARM\PACK\RealThread\RT-Thread\3.1.3\include\rtdef.h
 .\objects\object.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h

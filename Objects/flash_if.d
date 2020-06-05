@@ -1,5 +1,5 @@
-.\objects\flash_if.o: User\flash_if.c
-.\objects\flash_if.o: User\flash_if.h
+.\objects\flash_if.o: User\driver\flash_if.c
+.\objects\flash_if.o: User\driver\flash_if.h
 .\objects\flash_if.o: .\CMSIS\stm32f4xx.h
 .\objects\flash_if.o: .\CMSIS\core_cm4.h
 .\objects\flash_if.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
@@ -7,7 +7,7 @@
 .\objects\flash_if.o: .\CMSIS\core_cmFunc.h
 .\objects\flash_if.o: .\CMSIS\core_cmSimd.h
 .\objects\flash_if.o: .\CMSIS\system_stm32f4xx.h
-.\objects\flash_if.o: .\User\stm32f4xx_conf.h
+.\objects\flash_if.o: .\User\core\stm32f4xx_conf.h
 .\objects\flash_if.o: .\Library\inc\stm32f4xx_adc.h
 .\objects\flash_if.o: .\CMSIS\stm32f4xx.h
 .\objects\flash_if.o: .\Library\inc\stm32f4xx_crc.h

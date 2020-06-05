@@ -335,7 +335,7 @@
               <MiscControls></MiscControls>
               <Define>USE_STDPERIPH_DRIVER,STM32F40_41xxx</Define>
               <Undefine></Undefine>
-              <IncludePath>.\CMSIS;.\Library\inc;.\User</IncludePath>
+              <IncludePath>.\CMSIS;.\Library\inc;.\User;.\User\core;.\User\driver;.\User\tool</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -615,69 +615,159 @@
               <FilePath>.\User\main.h</FilePath>
             </File>
             <File>
+              <FileName>config.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\User\config.h</FilePath>
+            </File>
+            <File>
               <FileName>stm32f4xx_conf.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\User\stm32f4xx_conf.h</FilePath>
+              <FilePath>.\User\core\stm32f4xx_conf.h</FilePath>
             </File>
             <File>
               <FileName>stm32f4xx_it.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\User\stm32f4xx_it.c</FilePath>
+              <FilePath>.\User\core\stm32f4xx_it.c</FilePath>
             </File>
             <File>
               <FileName>stm32f4xx_it.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\User\stm32f4xx_it.h</FilePath>
+              <FilePath>.\User\core\stm32f4xx_it.h</FilePath>
             </File>
             <File>
               <FileName>system_stm32f4xx.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\User\system_stm32f4xx.c</FilePath>
+              <FilePath>.\User\core\system_stm32f4xx.c</FilePath>
             </File>
-            <File>
-              <FileName>gpio.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\User\gpio.c</FilePath>
-            </File>
-            <File>
-              <FileName>usart.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\User\usart.c</FilePath>
-            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Driver</GroupName>
+          <Files>
             <File>
               <FileName>can.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\User\can.c</FilePath>
+              <FilePath>.\User\driver\can.c</FilePath>
             </File>
             <File>
               <FileName>can.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\User\can.h</FilePath>
+              <FilePath>.\User\driver\can.h</FilePath>
             </File>
             <File>
               <FileName>flash_if.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\User\flash_if.c</FilePath>
+              <FilePath>.\User\driver\flash_if.c</FilePath>
             </File>
             <File>
               <FileName>flash_if.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\User\flash_if.h</FilePath>
+              <FilePath>.\User\driver\flash_if.h</FilePath>
+            </File>
+            <File>
+              <FileName>gpio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\User\driver\gpio.c</FilePath>
+            </File>
+            <File>
+              <FileName>gpio.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\User\driver\gpio.h</FilePath>
+            </File>
+            <File>
+              <FileName>timer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\User\driver\timer.c</FilePath>
+            </File>
+            <File>
+              <FileName>timer.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\User\driver\timer.h</FilePath>
+            </File>
+            <File>
+              <FileName>usart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\User\driver\usart.c</FilePath>
+            </File>
+            <File>
+              <FileName>usart.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\User\driver\usart.h</FilePath>
+            </File>
+            <File>
+              <FileName>spi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\User\driver\spi.c</FilePath>
+            </File>
+            <File>
+              <FileName>spi.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\User\driver\spi.h</FilePath>
+            </File>
+            <File>
+              <FileName>ads1248.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\User\driver\ads1248.c</FilePath>
+            </File>
+            <File>
+              <FileName>ads1248.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\User\driver\ads1248.h</FilePath>
+            </File>
+            <File>
+              <FileName>adc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\User\driver\adc.c</FilePath>
+            </File>
+            <File>
+              <FileName>adc.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\User\driver\adc.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Tool</GroupName>
+          <Files>
+            <File>
+              <FileName>total.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\User\tool\total.c</FilePath>
+            </File>
+            <File>
+              <FileName>total.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\User\tool\total.h</FilePath>
             </File>
             <File>
               <FileName>update.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\User\update.c</FilePath>
+              <FilePath>.\User\tool\update.c</FilePath>
             </File>
             <File>
               <FileName>update.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\User\update.h</FilePath>
+              <FilePath>.\User\tool\update.h</FilePath>
             </File>
             <File>
-              <FileName>config.h</FileName>
+              <FileName>pid.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\User\tool\pid.c</FilePath>
+            </File>
+            <File>
+              <FileName>pid.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\User\config.h</FilePath>
+              <FilePath>.\User\tool\pid.h</FilePath>
+            </File>
+            <File>
+              <FileName>updata.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\User\tool\updata.c</FilePath>
+            </File>
+            <File>
+              <FileName>updata.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\User\tool\updata.h</FilePath>
             </File>
           </Files>
         </Group>

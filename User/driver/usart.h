@@ -24,6 +24,8 @@ int Usart6_Set_RecPack_Flag(void);
 int Usart6_Clear_RecPack_Flag(void);
 int Usart6_Read_RecPack_Flag(void);
 
+
+int Usart2_Push_Char(void);
 int Usart6_Push_Char(void);
 
 void rt_hw_console_output(const char *str);

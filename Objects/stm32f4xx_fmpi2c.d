@@ -7,7 +7,7 @@
 .\objects\stm32f4xx_fmpi2c.o: .\CMSIS\core_cmFunc.h
 .\objects\stm32f4xx_fmpi2c.o: .\CMSIS\core_cmSimd.h
 .\objects\stm32f4xx_fmpi2c.o: .\CMSIS\system_stm32f4xx.h
-.\objects\stm32f4xx_fmpi2c.o: .\User\stm32f4xx_conf.h
+.\objects\stm32f4xx_fmpi2c.o: .\User\core\stm32f4xx_conf.h
 .\objects\stm32f4xx_fmpi2c.o: .\Library\inc\stm32f4xx_adc.h
 .\objects\stm32f4xx_fmpi2c.o: .\CMSIS\stm32f4xx.h
 .\objects\stm32f4xx_fmpi2c.o: .\Library\inc\stm32f4xx_crc.h

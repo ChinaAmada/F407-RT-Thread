@@ -1,8 +1,8 @@
 .\objects\mem.o: C:\Keil_v5\ARM\PACK\RealThread\RT-Thread\3.1.3\src\mem.c
 .\objects\mem.o: C:\Keil_v5\ARM\PACK\RealThread\RT-Thread\3.1.3\include\rthw.h
 .\objects\mem.o: C:\Keil_v5\ARM\PACK\RealThread\RT-Thread\3.1.3\include\rtthread.h
-.\objects\mem.o: E:\Project\RT\CanIAP_APP\RTE\RTOS\rtconfig.h
-.\objects\mem.o: E:\Project\RT\CanIAP_APP\RTE\_CanIAP\RTE_Components.h
+.\objects\mem.o: E:\Project\TempCtrl\TempCtrl_RT_Thread\RTE\RTOS\rtconfig.h
+.\objects\mem.o: E:\Project\TempCtrl\TempCtrl_RT_Thread\RTE\_CanIAP\RTE_Components.h
 .\objects\mem.o: C:\Keil_v5\ARM\PACK\RealThread\RT-Thread\3.1.3\include\rtdebug.h
 .\objects\mem.o: C:\Keil_v5\ARM\PACK\RealThread\RT-Thread\3.1.3\include\rtdef.h
 .\objects\mem.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h

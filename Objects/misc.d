@@ -7,7 +7,7 @@
 .\objects\misc.o: .\CMSIS\core_cmFunc.h
 .\objects\misc.o: .\CMSIS\core_cmSimd.h
 .\objects\misc.o: .\CMSIS\system_stm32f4xx.h
-.\objects\misc.o: .\User\stm32f4xx_conf.h
+.\objects\misc.o: .\User\core\stm32f4xx_conf.h
 .\objects\misc.o: .\Library\inc\stm32f4xx_adc.h
 .\objects\misc.o: .\CMSIS\stm32f4xx.h
 .\objects\misc.o: .\Library\inc\stm32f4xx_crc.h

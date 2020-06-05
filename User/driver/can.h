@@ -14,6 +14,15 @@
 
 #define 	CAN1_BUFF_SIZE			32
 #define 	CAN1_BUFF_MASK			(CAN1_BUFF_SIZE-1)
+#define 	MAX_CAN_SIZE			256
+
+typedef struct _Can_Rx_Buf {
+	char buff[MAX_CAN_SIZE];
+	unsigned int len;
+	unsigned int id;
+	int flag;
+}CAN_RX_BUF;
+
 
 u32 Get_CAN1_Addr(void);
 void CAN1_Config(void);

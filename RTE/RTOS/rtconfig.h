@@ -16,7 +16,7 @@
 // <h>Basic Configuration
 // <o>Maximal level of thread priority <8-256>
 //  <i>Default: 32
-#define RT_THREAD_PRIORITY_MAX  8
+#define RT_THREAD_PRIORITY_MAX  16//8
 // <o>OS tick per second
 //  <i>Default: 1000   (1ms)
 #define RT_TICK_PER_SECOND  1000
@@ -35,7 +35,7 @@
 
 // <o>the stack size of main thread<1-4086>
 //  <i>Default: 512
-#define RT_MAIN_THREAD_STACK_SIZE     256
+#define RT_MAIN_THREAD_STACK_SIZE     1024//256
 
 // </h>
 
@@ -56,17 +56,17 @@
 // <h>Hook Configuration
 // <c1>using hook
 //  <i>using hook
-//#define RT_USING_HOOK
+#define RT_USING_HOOK
 // </c>
 // <c1>using idle hook
 //  <i>using idle hook
-//#define RT_USING_IDLE_HOOK
+#define RT_USING_IDLE_HOOK
 // </c>
 // </h>
 
 // <e>Software timers Configuration
 // <i> Enables user timers
-#define RT_USING_TIMER_SOFT         0
+#define RT_USING_TIMER_SOFT         1
 #if RT_USING_TIMER_SOFT == 0
     #undef RT_USING_TIMER_SOFT
 #endif
@@ -85,7 +85,7 @@
 // </c>
 // <c1>Using Mutex
 //  <i>Using Mutex
-//#define RT_USING_MUTEX
+#define RT_USING_MUTEX
 // </c>
 // <c1>Using Event
 //  <i>Using Event
@@ -139,7 +139,7 @@
     // <o>the stack of finsh thread <1-4096>
     //  <i>the stack of finsh thread
     //  <i>Default: 4096  (4096Byte)
-    #define FINSH_THREAD_STACK_SIZE     512
+    #define FINSH_THREAD_STACK_SIZE     4096  //512
     // <o>the history lines of finsh thread <1-32>
     //  <i>the history lines of finsh thread
     //  <i>Default: 5

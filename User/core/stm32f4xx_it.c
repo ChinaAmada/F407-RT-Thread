@@ -135,6 +135,19 @@ void DebugMon_Handler(void)
   * @}
   */ 
 
+void USART2_IRQHandler(void)
+{
+	if(USART_GetITStatus(USART2, USART_IT_RXNE) != RESET)
+	{
+		USART_ClearITPendingBit(USART2,USART_IT_RXNE);				
+		/* Read one byte from the receive data register */
+		
+		Usart2_Push_Char();
+	}else if(USART_GetITStatus(USART2,USART_IT_IDLE) != RESET){
+		USART_ReceiveData(USART2);
+		//Usart6_Set_RecPack_Flag();
+	}
+}
 
 void USART6_IRQHandler(void)
 {
@@ -151,17 +164,121 @@ void USART6_IRQHandler(void)
 }
 
 
-extern struct rt_semaphore can_rx_sem; 
+extern struct rt_semaphore Can1_Rx_Sem; 
 void CAN1_RX0_IRQHandler(void)
 {
 	CanRxMsg  Can1_RX_Buff;
 	
   CAN_Receive(CAN1, CAN_FIFO0, &Can1_RX_Buff);
   CAN1_Push_Packet(&Can1_RX_Buff);
-  rt_sem_release(&can_rx_sem);
+  rt_sem_release(&Can1_Rx_Sem);
 }
 
 
+extern uint32_t Freq_InputCapture[];
+void TIM1_CC_IRQHandler(void)
+{
+	static uint32_t capture_value1[3]={0},capture_value2[3]={0};
+	static uint16_t flag_capture[3] = {0};
+	static uint32_t capture[3]={0};
+	
+	if(TIM_GetITStatus(TIM1,TIM_IT_CC1)!=RESET)
+	{
+		TIM_ClearITPendingBit(TIM1,TIM_IT_CC1);
+		
+		if(flag_capture[0]==0)
+		{
+			flag_capture[0]=1;
+			capture_value1[0]=(uint32_t)(TIM1->CCR1);
+		}else if(flag_capture[0]==1)
+		{
+			flag_capture[0]=0;
+			capture_value2[0]=(uint32_t)(TIM1->CCR1);
+			
+			if(capture_value2[0]>capture_value1[0])
+			{
+				capture[0] = capture_value2[0]-capture_value1[0];
+			}else if(capture_value2[0]<capture_value1[0])
+			{
+				capture[0] = capture_value2[0]+(0xFFFF-capture_value1[0]);
+			}else{
+				capture[0]=0;
+			}
+			
+			if(capture[0]!=0)
+				Freq_InputCapture[0] = (uint32_t)SystemCoreClock/(TIME_PRESCALER_84+1)/capture[0]/8;
+			else
+				Freq_InputCapture[0]=0;
+		}
+	}else if(TIM_GetITStatus(TIM1,TIM_IT_CC2)!=RESET)
+	{
+		TIM_ClearITPendingBit(TIM1,TIM_IT_CC2);
+		
+		if(flag_capture[1]==0)
+		{
+			flag_capture[1]=1;
+			capture_value1[1]=(uint32_t)(TIM1->CCR2);
+		}else if(flag_capture[1]==1)
+		{
+			flag_capture[1]=0;
+			capture_value2[1]=(uint32_t)(TIM1->CCR2);
+			
+			if(capture_value2[1]>capture_value1[1])
+			{
+				capture[1] = capture_value2[1]-capture_value1[1];
+			}else if(capture_value2[1]<capture_value1[1])
+			{
+				capture[1] = capture_value2[1]+(0xFFFF-capture_value1[1]);
+			}else{
+				capture[1]=0;
+			}
+			
+			if(capture[1]!=0)
+				Freq_InputCapture[1] = (uint32_t)SystemCoreClock/(TIME_PRESCALER_84+1)/capture[1];
+			else
+				Freq_InputCapture[1]=0;
+		}
+	}else if(TIM_GetITStatus(TIM1,TIM_IT_CC3)!=RESET)
+	{
+		TIM_ClearITPendingBit(TIM1,TIM_IT_CC3);
+		
+		if(flag_capture[2]==0)
+		{
+			flag_capture[2]=1;
+			capture_value1[2]=(uint32_t)(TIM1->CCR3);
+		}else if(flag_capture[2]==1)
+		{
+			flag_capture[2]=0;
+			capture_value2[2]=(uint32_t)(TIM1->CCR3);
+			
+			if(capture_value2[2]>capture_value1[2])
+			{
+				capture[2] = capture_value2[2]-capture_value1[2];
+			}else if(capture_value2[2]<capture_value1[2])
+			{
+				capture[2] = capture_value2[2]+(0xFFFF-capture_value1[2]);
+			}else{
+				capture[2]=0;
+			}
+			
+			if(capture[2]!=0)
+				Freq_InputCapture[2] = (uint32_t)SystemCoreClock/(TIME_PRESCALER_84+1)/capture[2];
+			else
+				Freq_InputCapture[2]=0;
+		}
+	}
+	
+}
 
 
+extern void TIM2_Update_Hook(void);
+void TIM2_IRQHandler(void)
+{
+	if(TIM_GetITStatus(TIM2,TIM_IT_Update)!=RESET)
+	{
+		TIM_ClearITPendingBit(TIM2,TIM_IT_Update);
+		
+		TIM2_Update_Hook();
+	}
+}
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

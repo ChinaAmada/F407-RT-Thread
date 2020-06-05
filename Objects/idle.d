@@ -1,8 +1,8 @@
 .\objects\idle.o: C:\Keil_v5\ARM\PACK\RealThread\RT-Thread\3.1.3\src\idle.c
 .\objects\idle.o: C:\Keil_v5\ARM\PACK\RealThread\RT-Thread\3.1.3\include\rthw.h
 .\objects\idle.o: C:\Keil_v5\ARM\PACK\RealThread\RT-Thread\3.1.3\include\rtthread.h
-.\objects\idle.o: E:\Project\RT\CanIAP_APP\RTE\RTOS\rtconfig.h
-.\objects\idle.o: E:\Project\RT\CanIAP_APP\RTE\_CanIAP\RTE_Components.h
+.\objects\idle.o: E:\Project\TempCtrl\TempCtrl_RT_Thread\RTE\RTOS\rtconfig.h
+.\objects\idle.o: E:\Project\TempCtrl\TempCtrl_RT_Thread\RTE\_CanIAP\RTE_Components.h
 .\objects\idle.o: C:\Keil_v5\ARM\PACK\RealThread\RT-Thread\3.1.3\include\rtdebug.h
 .\objects\idle.o: C:\Keil_v5\ARM\PACK\RealThread\RT-Thread\3.1.3\include\rtdef.h
 .\objects\idle.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h

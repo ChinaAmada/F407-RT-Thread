@@ -5,8 +5,12 @@
 
 
 //static int Usart6_Index=0;
+static int Usart2_Index_Head=0,Usart2_Index_Tail=0;
+static char Usart2_Buff[USART_BUFF_SIZE];
+
 static int Usart6_Index_Head=0,Usart6_Index_Tail=0;
 //static int Usart6_Buff_len=0;
+
 static char Usart6_Buff[USART_BUFF_SIZE];
 static FlagStatus Usart6_RecPack_Flag=RESET;
 
@@ -40,6 +44,23 @@ int Usart6_Get_Char(char* ch)
 		return ERROR;
 	*ch = Usart6_Buff[Usart6_Index_Tail++];
 	Usart6_Index_Tail = Usart6_Index_Tail&USART_MASK;
+	return SUCCESS;
+}
+
+
+int Usart2_Push_Char(void)
+{
+	Usart2_Buff[Usart2_Index_Head++]=USART_ReceiveData(USART2);
+	Usart2_Index_Head = Usart2_Index_Head&USART_MASK;
+	
+	return SUCCESS;
+}
+int Usart2_Get_Char(char* ch)
+{	
+	if(Usart2_Index_Tail==Usart2_Index_Head)
+		return ERROR;
+	*ch = Usart2_Buff[Usart2_Index_Tail++];
+	Usart2_Index_Tail = Usart2_Index_Tail&USART_MASK;
 	return SUCCESS;
 }
 
@@ -159,7 +180,7 @@ FILE __stdout;
  
 void _sys_exit(int x)
 {
-	
+	x = x;
 }
 
 
@@ -181,7 +202,61 @@ int fputc(int ch, FILE *f)
 
 
 
+void USART2_Config(void)
+{
+	GPIO_InitTypeDef GPIO_InitStructure;
+	USART_InitTypeDef USART_InitStructure;
+	NVIC_InitTypeDef NVIC_InitStructure;
 
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOD,ENABLE);
+	RCC_APB1PeriphClockCmd(RCC_APB1Periph_USART2,ENABLE);
+
+	GPIO_PinAFConfig(GPIOD, GPIO_PinSource5, GPIO_AF_USART2);
+	GPIO_PinAFConfig(GPIOD, GPIO_PinSource6, GPIO_AF_USART2);
+	/*
+	*  USART2_TX -> PD5 , USART2_RX -PD6
+	*/
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_5;
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
+	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
+
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;
+	GPIO_Init(GPIOD, &GPIO_InitStructure);
+
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_6;
+	GPIO_InitStructure.GPIO_OType = GPIO_OType_OD;
+	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
+	GPIO_Init(GPIOD, &GPIO_InitStructure);
+	/*
+	USARTx configured as follow:
+	- BaudRate = 115200 baud  
+	- Word Length = 8 Bits
+	- One Stop Bit
+	- No parity
+	- Hardware flow control disabled (RTS and CTS signals)
+	- Receive and transmit    
+	*/
+
+	USART_InitStructure.USART_BaudRate = 115200;
+	USART_InitStructure.USART_WordLength = USART_WordLength_8b;
+	USART_InitStructure.USART_StopBits = USART_StopBits_1;
+	USART_InitStructure.USART_Parity = USART_Parity_No;
+	USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;
+	USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;
+	USART_Init(USART2, &USART_InitStructure);
+	/* Enable the Open_USART Transmit interrupt: this interrupt is generated when the 
+	Open_USART transmit data register is empty */
+	NVIC_InitStructure.NVIC_IRQChannel = USART2_IRQn;
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 2;
+	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+	NVIC_Init(&NVIC_InitStructure);
+	
+	//USART_ITConfig(USART6,USART_IT_RXNE,DISABLE);
+	USART_ITConfig(USART2,USART_IT_RXNE,ENABLE);
+	USART_Cmd(USART2, ENABLE);
+}
 void USART6_Config(u32 bound){
   //GPIO????
 				GPIO_InitTypeDef GPIO_InitStructure;
@@ -235,9 +310,12 @@ int Usart_Send_Data(USART_TypeDef* USARTx,char* data,int len)
 	
 	for(i=0;i<len;i++)
 	{
-		while(USART_GetFlagStatus(USART6, USART_FLAG_TC)== RESET)
+		while(USART_GetFlagStatus(USARTx, USART_FLAG_TC)== RESET)
 			;
 		USART_SendData(USARTx,(uint16_t)data[i]);
+		
+		//while(USART_GetFlagStatus(USART6, USART_FLAG_TC)== RESET)
+		//	;
 	}
 	return SUCCESS;
 }
@@ -269,10 +347,10 @@ void rt_hw_console_output(const char *str)
     {
         if (*(str + i) == '\n')
         {
-			Usart_Send_Data(USART6,(uint8_t *)&a,1);
+			Usart_Send_Data(USART2,(char *)&a,1);
             //HAL_UART_Transmit(&UartHandle, (uint8_t *)&a, 1, 1);
         }
-		Usart_Send_Data(USART6,(uint8_t *)(str + i),1);
+		Usart_Send_Data(USART2,(char *)(str + i),1);
         //HAL_UART_Transmit(&UartHandle, (uint8_t *)(str + i), 1, 1);
     }
 }
@@ -297,9 +375,11 @@ int rt_hw_console_getchar(void)
     return ch;
 	*/
 	char ch;
-	if(Usart6_Get_Char(&ch)==SUCCESS)
+	if(Usart2_Get_Char(&ch)==SUCCESS)
 	{
 		return ch;
+	}else{
+		rt_thread_mdelay(10);
 	}
 	
 	return -1;
@@ -309,7 +389,8 @@ int rt_hw_console_getchar(void)
 
 static int uart_init(void)
 {
-	USART_Config();
+	//USART_Config();
+	USART2_Config();
 	return 1;
 }
 

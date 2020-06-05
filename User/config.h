@@ -7,11 +7,20 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f4xx.h"
 #include "main.h"
+
 #include "gpio.h"
 #include "usart.h"
 #include "can.h"
+#include "adc.h"
+#include "spi.h"
+#include "timer.h"
 #include "flash_if.h"
+#include "ads1248.h"
+
+#include "updata.h"
 #include "update.h"
+#include "total.h"
+#include "pid.h"
 
 #include <stdio.h>
 #include <stdlib.h>

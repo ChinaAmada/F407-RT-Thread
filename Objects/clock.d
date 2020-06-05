@@ -1,8 +1,8 @@
 .\objects\clock.o: C:\Keil_v5\ARM\PACK\RealThread\RT-Thread\3.1.3\src\clock.c
 .\objects\clock.o: C:\Keil_v5\ARM\PACK\RealThread\RT-Thread\3.1.3\include\rthw.h
 .\objects\clock.o: C:\Keil_v5\ARM\PACK\RealThread\RT-Thread\3.1.3\include\rtthread.h
-.\objects\clock.o: E:\Project\RT\CanIAP_APP\RTE\RTOS\rtconfig.h
-.\objects\clock.o: E:\Project\RT\CanIAP_APP\RTE\_CanIAP\RTE_Components.h
+.\objects\clock.o: E:\Project\TempCtrl\TempCtrl_RT_Thread\RTE\RTOS\rtconfig.h
+.\objects\clock.o: E:\Project\TempCtrl\TempCtrl_RT_Thread\RTE\_CanIAP\RTE_Components.h
 .\objects\clock.o: C:\Keil_v5\ARM\PACK\RealThread\RT-Thread\3.1.3\include\rtdebug.h
 .\objects\clock.o: C:\Keil_v5\ARM\PACK\RealThread\RT-Thread\3.1.3\include\rtdef.h
 .\objects\clock.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h

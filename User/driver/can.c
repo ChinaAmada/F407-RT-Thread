@@ -7,6 +7,12 @@
 static u32 Self_Can_Addr=0;
 static int Can1_Index_Head=0,Can1_Index_Tail=0;
 CanRxMsg  Can1_Buff[CAN1_BUFF_SIZE];
+CAN_RX_BUF Can1_Rx_Buff={
+	.buff={0},
+	.len=0,
+	.id=0,
+	.flag=0
+};
 
 
 u32 Get_CAN1_Addr(void)
@@ -14,8 +20,15 @@ u32 Get_CAN1_Addr(void)
 	return Self_Can_Addr;
 }
 
+void Can_Delay(uint32_t ms)
+{
+	rt_thread_mdelay(ms);
+}
+
+
 int CAN1_Read_Packet(CanRxMsg* rx)
 {
+/*	*/
 	if(Can1_Index_Head==Can1_Index_Tail)
 	{
 		return FALSE;
@@ -28,12 +41,15 @@ int CAN1_Read_Packet(CanRxMsg* rx)
 	
 }
 
+
 int CAN1_Push_Packet(CanRxMsg* rx)
 {
-		memcpy((char*)(Can1_Buff+Can1_Index_Head),(char*)rx,sizeof(CanRxMsg));
-		Can1_Index_Head++;
-		Can1_Index_Head=Can1_Index_Head&CAN1_BUFF_MASK;
-		return TRUE;
+	if(Can1_Rx_Buff.len+rx->DLC>=MAX_CAN_SIZE)
+		return FALSE;
+	memcpy((char*)(Can1_Rx_Buff.buff+Can1_Rx_Buff.len),(char*)rx->Data,rx->DLC);
+	Can1_Rx_Buff.len += rx->DLC;
+	Can1_Rx_Buff.id = rx->StdId;
+	return TRUE;
 }
 
 void CAN1_Config(void)
@@ -227,12 +243,13 @@ int CAN1_SendData_ID(unsigned int id,char* data,int len)
 		TxMessage.DLC = ((len-i*8)>8)?8:(len-i*8);
 		while(CAN_Transmit(CAN1, &TxMessage)==CAN_TxStatus_NoMailBox)
 		{
-			Delay(1);
+			Can_Delay(1);
 		}
 	}
 	
 	return SUCCESS;
 }
+
 
 int CAN1_SendData(char* data,int len)
 {
@@ -254,7 +271,7 @@ int CAN1_SendData(char* data,int len)
 		TxMessage.DLC = ((len-i*8)>8)?8:(len-i*8);
 		while(CAN_Transmit(CAN1, &TxMessage)==CAN_TxStatus_NoMailBox)
 		{
-			Delay(1);
+			Can_Delay(1);
 		}
 	}
 	
